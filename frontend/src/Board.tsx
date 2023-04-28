@@ -103,7 +103,14 @@ export default function Board(props: Props) {
             {props.status?.gameStatus?.rolledNumber && <>Du hast eine {props.status?.gameStatus?.rolledNumber} gewürfelt.</>}<br/>
             <button onClick={props.rollDice}>Role dice</button>
             <button onClick={props.reset}>Reset</button>
+            <br/>
             {props.status?.playerNumber && <>Du bist Spieler {props.status?.playerNumber}.</>}
+            <br/>
+            Aktuell sind folgende Spieler verbunden: <br /> {
+                props.status?.playerNumbers?.map((player) => {
+                    return <><span key={player}>Player: {JSON.stringify(player)}</span><br /></>
+                })
+            }
         </div>
     );
 }
