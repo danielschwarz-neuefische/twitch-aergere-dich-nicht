@@ -51,7 +51,9 @@ public class GameSupportService extends TextWebSocketHandler {
                 gameRulesService.reset();
                 break;
             case "rollDice":
-                gameRulesService.rollDice();
+                if (session.getAttributes().get("playerNumber").equals(gameRulesService.getGameStatus().activePlayerNumber())) {
+                    gameRulesService.rollDice();
+                }
                 break;
             default:
                 System.out.println("Unknown message: " + message.getPayload());
