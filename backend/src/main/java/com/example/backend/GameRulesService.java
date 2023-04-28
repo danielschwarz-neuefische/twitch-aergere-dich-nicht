@@ -8,21 +8,17 @@ import org.springframework.stereotype.Service;
 public class GameRulesService {
 
     public static final int LENGTH_OF_BOARD = 17;
-    private int boardStatus = 1;
+    private GameStatus gameStatus = new GameStatus(1, null);
 
     private final DiceService diceService;
 
-    public String getBoard() {
-        StringBuilder board = new StringBuilder();
-
-        board.append("_".repeat(Math.max(0, boardStatus - 1)));
-        board.append("X");
-        board.append("_".repeat(Math.max(0, LENGTH_OF_BOARD - boardStatus)));
-
-        return board.toString();
+    public GameStatus getGameStatus() {
+        return gameStatus;
     }
 
     public void rollDice() {
-        boardStatus += diceService.rollDice();
+        int rolled = diceService.rollDice();
+        int newPosition = gameStatus.playerPosition() + rolled;
+        gameStatus = new GameStatus(newPosition, rolled);
     }
 }

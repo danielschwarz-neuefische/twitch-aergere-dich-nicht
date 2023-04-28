@@ -1,5 +1,6 @@
 package com.example.backend;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
@@ -17,6 +18,7 @@ public class GameSupportService extends TextWebSocketHandler {
 
     private final GameRulesService gameRulesService;
     private final Set<WebSocketSession> sessions = new HashSet<>();
+    private final ObjectMapper objectMapper;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws IOException {
@@ -38,8 +40,9 @@ public class GameSupportService extends TextWebSocketHandler {
     }
 
     private void publishBoardStatus() throws IOException {
+        String statusAsText = objectMapper.writeValueAsString(gameRulesService.getGameStatus());
         for (WebSocketSession session : sessions) {
-            session.sendMessage(new TextMessage(gameRulesService.getBoard()));
+            session.sendMessage(new TextMessage(statusAsText));
         }
     }
 }

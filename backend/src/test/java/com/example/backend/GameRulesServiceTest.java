@@ -14,16 +14,16 @@ class GameRulesServiceTest {
 
     @Test
     void expectInitially_playerOnFirstPosition() {
-        String board = gameRulesService.getBoard();
-        Assertions.assertEquals("X________________", board);
+        GameStatus board = gameRulesService.getGameStatus();
+        Assertions.assertEquals(1, board.playerPosition());
     }
 
     @Test
     void expectXOnNextPosition() {
         when(diceService.rollDice()).thenReturn(3);
         gameRulesService.rollDice();
-        String board = gameRulesService.getBoard();
-        Assertions.assertEquals("___X_____________", board);
+        GameStatus board = gameRulesService.getGameStatus();
+        Assertions.assertEquals(4, board.playerPosition());
     }
 
     @Test
@@ -32,7 +32,7 @@ class GameRulesServiceTest {
         gameRulesService.rollDice();
         when(diceService.rollDice()).thenReturn(6);
         gameRulesService.rollDice();
-        String board = gameRulesService.getBoard();
-        Assertions.assertEquals("_______X_________", board);
+        GameStatus board = gameRulesService.getGameStatus();
+        Assertions.assertEquals(8, board.playerPosition());
     }
 }
