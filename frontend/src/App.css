@@ -3,3 +3,13 @@
   grid-template-rows: repeat(13, 40px);
   grid-template-columns: repeat(13, 40px);
 }
+
+#player {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#board-and-player {
+  position: relative;
+}
