@@ -3,13 +3,15 @@ package com.example.backend;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class GameRulesService {
 
-    private GameStatus gameStatus = new GameStatus(1, null, 1);
+    public static final GameStatus INITIAL_STATUS = new GameStatus(List.of(1, 1, 1, 1), null, 1);
+    private GameStatus gameStatus = INITIAL_STATUS;
 
     private final DiceService diceService;
     private List<Integer> usedPlayerNumbers;
@@ -22,17 +24,16 @@ public class GameRulesService {
         return gameStatus;
     }
 
-    public void rollDice(Object playerNumber) {
+    public void rollDice(Integer playerNumber) {
         int rolled = diceService.rollDice();
-        int newPosition = gameStatus.playerPosition() + rolled;
+        var newPositions = new ArrayList<>(gameStatus.playerPositions());
+        newPositions.set(playerNumber-1, newPositions.get(playerNumber-1) + rolled);
         int playerIndex = usedPlayerNumbers.indexOf(playerNumber) + 1;
-        if (playerIndex >= usedPlayerNumbers.size()) {
-            playerIndex = 0;
-        }
-        gameStatus = new GameStatus(newPosition, rolled, usedPlayerNumbers.get(playerIndex));
+        playerIndex %= usedPlayerNumbers.size();
+        gameStatus = new GameStatus(newPositions, rolled, usedPlayerNumbers.get(playerIndex));
     }
 
     public void reset() {
-        gameStatus = new GameStatus(1, null, 1);
+        gameStatus = INITIAL_STATUS;
     }
 }

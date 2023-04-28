@@ -1,5 +1,5 @@
 export type GameStatus = {
-    playerPosition: number
+    playerPositions: number[]
     rolledNumber: number
     activePlayerNumber: number
 }

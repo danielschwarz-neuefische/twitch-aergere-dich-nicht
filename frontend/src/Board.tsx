@@ -1,5 +1,4 @@
 import React from "react";
-import {GameStatus} from "./GameStatus";
 import {PlayerStatus} from "./PlayerStatus";
 
 type Props = {
@@ -9,6 +8,9 @@ type Props = {
 }
 export default function Board(props: Props) {
 
+    const [color, setColor] = React.useState<string[]>(
+        ['red', 'blue', 'green', 'yellow']
+    );
     const [board, setBoard] = React.useState<string[][]>(
         [
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -92,15 +94,21 @@ export default function Board(props: Props) {
                         })
                     }
                 </div>
-                <div id="player" style={{
-                    left: (positions[props.status?.gameStatus?.playerPosition-1]?.[0]) * 40,
-                    top: (positions[props.status?.gameStatus?.playerPosition-1]?.[1]) * 40,
-                    color: 'blue',
-                }}>
-                    ●
-                </div>
+                {
+                    [0, 1, 2, 3].map((player) =>
+
+                        <div id="player" key={player} style={{
+                            left: (positions[props.status?.gameStatus?.playerPositions[player] - 1]?.[0]) * 40,
+                            top: (positions[props.status?.gameStatus?.playerPositions[player] - 1]?.[1]) * 40,
+                            color: color[player],
+                        }}>
+                            ●
+                        </div>
+                    )
+                }
             </div>
-            {props.status?.gameStatus?.rolledNumber && <>Du hast eine {props.status?.gameStatus?.rolledNumber} gewürfelt.</>}<br/>
+            {props.status?.gameStatus?.rolledNumber && <>Du hast
+                eine {props.status?.gameStatus?.rolledNumber} gewürfelt.</>}<br/>
             {props.status?.gameStatus?.activePlayerNumber === props.status?.playerNumber && <>
                 Du bist dran.
                 <button onClick={props.rollDice}>Role dice</button>

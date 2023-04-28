@@ -53,7 +53,7 @@ public class GameSupportService extends TextWebSocketHandler {
                 gameRulesService.reset();
                 break;
             case "rollDice":
-                var playerNumber = session.getAttributes().get("playerNumber");
+                var playerNumber = (Integer) session.getAttributes().get("playerNumber");
                 if (playerNumber.equals(gameRulesService.getGameStatus().activePlayerNumber())) {
                     gameRulesService.rollDice(playerNumber);
                 }

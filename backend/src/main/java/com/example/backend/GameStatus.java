@@ -1,7 +1,9 @@
 package com.example.backend;
 
+import java.util.List;
+
 public record GameStatus(
-        int playerPosition,
+        List<Integer> playerPositions,
         Integer rolledNumber,
         Integer activePlayerNumber) {
 }
