@@ -15,6 +15,27 @@ public class GameService extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws IOException {
         System.out.println("Connection established");
+        publishBoardStatus(session);
+    }
+
+    @Override
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
+        board = "_X___";
+        publishBoardStatus(session);
+    }
+
+    private void publishBoardStatus(WebSocketSession session) throws IOException {
         session.sendMessage(new TextMessage(board));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
