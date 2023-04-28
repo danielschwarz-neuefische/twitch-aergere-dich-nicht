@@ -6,12 +6,21 @@ export default function App() {
 
     const [board, setBoard] = React.useState<string>();
 
-    useWebSocket("ws://localhost:8080/ws/game", {
+    const webSocket = useWebSocket("ws://localhost:8080/ws/game", {
         onOpen: () => console.log("opened"),
         onMessage: (msg) => {
             setBoard(msg.data);
         },
     })
 
-    return <>{board}</>;
+    function roleDice() {
+        webSocket.sendMessage(".");
+    }
+
+    return (
+        <div>
+            {board}
+            <button onClick={roleDice}>Role dice</button>
+        </div>
+    );
 }
