@@ -1,5 +1,6 @@
 package com.example.backend;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -8,9 +9,10 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.io.IOException;
 
 @Service
-public class GameService extends TextWebSocketHandler {
+@RequiredArgsConstructor
+public class GameSupportService extends TextWebSocketHandler {
 
-    private String board = "X____";
+    private final GameRulesService gameRulesService;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws IOException {
@@ -20,12 +22,12 @@ public class GameService extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-        board = "_X___";
+        gameRulesService.rollDice();
         publishBoardStatus(session);
     }
 
     private void publishBoardStatus(WebSocketSession session) throws IOException {
-        session.sendMessage(new TextMessage(board));
+        session.sendMessage(new TextMessage(gameRulesService.getBoard()));
     }
 }
 

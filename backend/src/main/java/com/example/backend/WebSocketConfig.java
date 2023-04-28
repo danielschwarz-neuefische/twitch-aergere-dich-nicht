@@ -11,11 +11,11 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    private final GameService gameService;
+    private final GameSupportService gameSupportService;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(gameService, "/ws/game")
+        registry.addHandler(gameSupportService, "/ws/game")
                 .setAllowedOrigins("*");
     }
 }
