@@ -15,6 +15,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(gameService, "/ws/game");
+        registry.addHandler(gameService, "/ws/game")
+                .setAllowedOrigins("*");
     }
 }
