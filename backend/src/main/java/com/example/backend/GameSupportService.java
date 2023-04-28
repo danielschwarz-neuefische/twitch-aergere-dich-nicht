@@ -35,7 +35,16 @@ public class GameSupportService extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-        gameRulesService.rollDice();
+        switch (message.getPayload()) {
+            case "reset":
+                gameRulesService.reset();
+                break;
+            case "rollDice":
+                gameRulesService.rollDice();
+                break;
+            default:
+                System.out.println("Unknown message: " + message.getPayload());
+        }
         publishBoardStatus();
     }
 

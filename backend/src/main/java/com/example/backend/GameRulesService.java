@@ -20,4 +20,8 @@ public class GameRulesService {
         int newPosition = gameStatus.playerPosition() + rolled;
         gameStatus = new GameStatus(newPosition, rolled);
     }
+
+    public void reset() {
+        gameStatus = new GameStatus(1, null);
+    }
 }

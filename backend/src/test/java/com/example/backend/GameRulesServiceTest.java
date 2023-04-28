@@ -35,4 +35,13 @@ class GameRulesServiceTest {
         GameStatus board = gameRulesService.getGameStatus();
         Assertions.assertEquals(8, board.playerPosition());
     }
+
+    @Test
+    void expectPos1AfterReset() {
+        when(diceService.rollDice()).thenReturn(1);
+        gameRulesService.rollDice();
+        gameRulesService.reset();
+        GameStatus board = gameRulesService.getGameStatus();
+        Assertions.assertEquals(1, board.playerPosition());
+    }
 }

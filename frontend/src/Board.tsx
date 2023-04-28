@@ -3,7 +3,8 @@ import {GameStatus} from "./GameStatus";
 
 type Props = {
     status: GameStatus;
-    roleDice: () => void
+    rollDice: () => void;
+    reset: () => void;
 }
 export default function Board(props: Props) {
 
@@ -99,7 +100,8 @@ export default function Board(props: Props) {
                 </div>
             </div>
             {props.status?.rolledNumber && <>Du hast eine {props.status?.rolledNumber} gewürfelt.</>}<br/>
-            <button onClick={props.roleDice}>Role dice</button>
+            <button onClick={props.rollDice}>Role dice</button>
+            <button onClick={props.reset}>Reset</button>
             props.status?.playerPosition: {props.status?.playerPosition}
             positions[props.status?.playerPosition-1]?.[0]: {positions[props.status?.playerPosition-1]?.[0]}
             positions[props.status?.playerPosition-1]?.[1]: {positions[props.status?.playerPosition-1]?.[1]}

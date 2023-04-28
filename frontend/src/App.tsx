@@ -14,13 +14,17 @@ export default function App() {
         },
     })
 
-    function roleDice() {
-        webSocket.sendMessage(".");
+    function rollDice() {
+        webSocket.sendMessage("rollDice");
+    }
+
+    function reset() {
+        webSocket.sendMessage("reset");
     }
 
     if (!status) {
         return <>Loading...</>
     }
-    return <Board status={status} roleDice={roleDice}></Board>
+    return <Board status={status} reset={reset} rollDice={rollDice}></Board>
 
 }
