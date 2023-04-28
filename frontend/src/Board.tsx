@@ -1,8 +1,9 @@
 import React from "react";
 import {GameStatus} from "./GameStatus";
+import {PlayerStatus} from "./PlayerStatus";
 
 type Props = {
-    status: GameStatus;
+    status: PlayerStatus;
     rollDice: () => void;
     reset: () => void;
 }
@@ -92,19 +93,17 @@ export default function Board(props: Props) {
                     }
                 </div>
                 <div id="player" style={{
-                    left: (positions[props.status?.playerPosition-1]?.[0]) * 40,
-                    top: (positions[props.status?.playerPosition-1]?.[1]) * 40,
+                    left: (positions[props.status?.gameStatus?.playerPosition-1]?.[0]) * 40,
+                    top: (positions[props.status?.gameStatus?.playerPosition-1]?.[1]) * 40,
                     color: 'blue',
                 }}>
                     ●
                 </div>
             </div>
-            {props.status?.rolledNumber && <>Du hast eine {props.status?.rolledNumber} gewürfelt.</>}<br/>
+            {props.status?.gameStatus?.rolledNumber && <>Du hast eine {props.status?.gameStatus?.rolledNumber} gewürfelt.</>}<br/>
             <button onClick={props.rollDice}>Role dice</button>
             <button onClick={props.reset}>Reset</button>
-            props.status?.playerPosition: {props.status?.playerPosition}
-            positions[props.status?.playerPosition-1]?.[0]: {positions[props.status?.playerPosition-1]?.[0]}
-            positions[props.status?.playerPosition-1]?.[1]: {positions[props.status?.playerPosition-1]?.[1]}
+            {props.status?.playerNumber && <>Du bist Spieler {props.status?.playerNumber}.</>}
         </div>
     );
 }
