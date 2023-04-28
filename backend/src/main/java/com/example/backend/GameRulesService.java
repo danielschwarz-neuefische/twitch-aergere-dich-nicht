@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GameRulesService {
 
-    public static final int LENGTH_OF_BOARD = 17;
     private GameStatus gameStatus = new GameStatus(1, null);
 
     private final DiceService diceService;

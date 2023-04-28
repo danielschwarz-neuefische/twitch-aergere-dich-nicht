@@ -26,21 +26,50 @@ export default function Board(props: Props) {
     );
     const [positions, setPositions] = React.useState<number[][]>(
         [
-            [7, 0],
             [7, 1],
             [7, 2],
             [7, 3],
             [7, 4],
-            [8, 4],
-            [9, 4],
-            [10, 4],
-            [11, 4],
+            [7, 5],
+            [8, 5],
+            [9, 5],
+            [10, 5],
             [11, 5],
             [11, 6],
-            [10, 6],
-            [9, 6],
-            [8, 6],
-            [7, 6],
+            [11, 7],
+            [10, 7],
+            [9, 7],
+            [8, 7],
+            [7, 7],
+            [7, 8],
+            [7, 9],
+            [7, 10],
+            [7, 11],
+            [6, 11],
+            [5, 11],
+            [5, 10],
+            [5, 9],
+            [5, 8],
+            [5, 7],
+            [4, 7],
+            [3, 7],
+            [2, 7],
+            [1, 7],
+            [1, 6],
+            [1, 5],
+            [2, 5],
+            [3, 5],
+            [4, 5],
+            [5, 5],
+            [5, 4],
+            [5, 3],
+            [5, 2],
+            [5, 1],
+            [6, 1],
+            [6, 2],
+            [6, 3],
+            [6, 4],
+            [6, 5],
         ]
     );
 
@@ -63,7 +92,7 @@ export default function Board(props: Props) {
                 </div>
                 <div id="player" style={{
                     left: (positions[props.status?.playerPosition-1]?.[0]) * 40,
-                    top: (positions[props.status?.playerPosition-1]?.[1] + 1) * 40,
+                    top: (positions[props.status?.playerPosition-1]?.[1]) * 40,
                     color: 'blue',
                 }}>
                     ●
@@ -71,6 +100,9 @@ export default function Board(props: Props) {
             </div>
             {props.status?.rolledNumber && <>Du hast eine {props.status?.rolledNumber} gewürfelt.</>}<br/>
             <button onClick={props.roleDice}>Role dice</button>
+            props.status?.playerPosition: {props.status?.playerPosition}
+            positions[props.status?.playerPosition-1]?.[0]: {positions[props.status?.playerPosition-1]?.[0]}
+            positions[props.status?.playerPosition-1]?.[1]: {positions[props.status?.playerPosition-1]?.[1]}
         </div>
     );
 }
