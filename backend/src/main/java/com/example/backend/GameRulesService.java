@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GameRulesService {
 
-    private GameStatus gameStatus = new GameStatus(1, null);
+    private GameStatus gameStatus = new GameStatus(1, null, 1);
 
     private final DiceService diceService;
 
@@ -18,10 +18,10 @@ public class GameRulesService {
     public void rollDice() {
         int rolled = diceService.rollDice();
         int newPosition = gameStatus.playerPosition() + rolled;
-        gameStatus = new GameStatus(newPosition, rolled);
+        gameStatus = new GameStatus(newPosition, rolled, 1);
     }
 
     public void reset() {
-        gameStatus = new GameStatus(1, null);
+        gameStatus = new GameStatus(1, null, 1);
     }
 }

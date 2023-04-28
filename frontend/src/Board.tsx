@@ -101,7 +101,10 @@ export default function Board(props: Props) {
                 </div>
             </div>
             {props.status?.gameStatus?.rolledNumber && <>Du hast eine {props.status?.gameStatus?.rolledNumber} gewürfelt.</>}<br/>
-            <button onClick={props.rollDice}>Role dice</button>
+            {props.status?.gameStatus?.activePlayerNumber === props.status?.playerNumber && <>
+                Du bist dran.
+                <button onClick={props.rollDice}>Role dice</button>
+            </>}
             <button onClick={props.reset}>Reset</button>
             <br/>
             {props.status?.playerNumber && <>Du bist Spieler {props.status?.playerNumber}.</>}
