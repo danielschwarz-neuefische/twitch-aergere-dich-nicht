@@ -4,7 +4,14 @@ import useWebSocket from "react-use-websocket";
 
 export default function App() {
 
-    useWebSocket("ws://localhost:8080/ws/game")
+    const [board, setBoard] = React.useState<string>();
 
-    return <>Hallo Insel</>;
+    useWebSocket("ws://localhost:8080/ws/game", {
+        onOpen: () => console.log("opened"),
+        onMessage: (msg) => {
+            setBoard(msg.data);
+        },
+    })
+
+    return <>{board}</>;
 }
