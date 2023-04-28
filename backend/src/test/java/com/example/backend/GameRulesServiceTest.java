@@ -21,7 +21,7 @@ class GameRulesServiceTest {
     @Test
     void expectXOnNextPosition() {
         when(diceService.rollDice()).thenReturn(3);
-        gameRulesService.rollDice();
+        gameRulesService.rollDice(playerNumber);
         GameStatus board = gameRulesService.getGameStatus();
         Assertions.assertEquals(4, board.playerPosition());
     }
@@ -29,9 +29,9 @@ class GameRulesServiceTest {
     @Test
     void expectXEvenFurtherRightOnTwoDiceRolls() {
         when(diceService.rollDice()).thenReturn(1);
-        gameRulesService.rollDice();
+        gameRulesService.rollDice(playerNumber);
         when(diceService.rollDice()).thenReturn(6);
-        gameRulesService.rollDice();
+        gameRulesService.rollDice(playerNumber);
         GameStatus board = gameRulesService.getGameStatus();
         Assertions.assertEquals(8, board.playerPosition());
     }
@@ -39,7 +39,7 @@ class GameRulesServiceTest {
     @Test
     void expectPos1AfterReset() {
         when(diceService.rollDice()).thenReturn(1);
-        gameRulesService.rollDice();
+        gameRulesService.rollDice(playerNumber);
         gameRulesService.reset();
         GameStatus board = gameRulesService.getGameStatus();
         Assertions.assertEquals(1, board.playerPosition());

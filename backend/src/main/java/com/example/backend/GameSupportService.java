@@ -28,6 +28,7 @@ public class GameSupportService extends TextWebSocketHandler {
         if (!availablePlayerNumbers.isEmpty()) {
             var playerNumber = availablePlayerNumbers.remove(0);
             session.getAttributes().put("playerNumber", playerNumber);
+            gameRulesService.setUsedPlayerNumbers(getUsedPlayerNumbers());
         }
         publishBoardStatus();
     }
@@ -39,6 +40,7 @@ public class GameSupportService extends TextWebSocketHandler {
         if (playerNumber != null) {
             availablePlayerNumbers.add(playerNumber);
             Collections.sort(availablePlayerNumbers);
+            gameRulesService.setUsedPlayerNumbers(getUsedPlayerNumbers());
         }
         sessions.remove(session);
         publishBoardStatus();
@@ -51,8 +53,9 @@ public class GameSupportService extends TextWebSocketHandler {
                 gameRulesService.reset();
                 break;
             case "rollDice":
-                if (session.getAttributes().get("playerNumber").equals(gameRulesService.getGameStatus().activePlayerNumber())) {
-                    gameRulesService.rollDice();
+                var playerNumber = session.getAttributes().get("playerNumber");
+                if (playerNumber.equals(gameRulesService.getGameStatus().activePlayerNumber())) {
+                    gameRulesService.rollDice(playerNumber);
                 }
                 break;
             default:
