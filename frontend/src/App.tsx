@@ -37,23 +37,20 @@ export default function App() {
     return (
         <div>
             {status}
-            <pre>
+            <div id="board">
                 {
                     board.map((row, i) => {
-                        return (
-                            <div key={i}>
-                                {
-                                    row.map((cell, j) => {
-                                        return (
-                                            <span key={j}>{cell}</span>
-                                        )
-                                    })
-                                }
-                            </div>
-                        )
+                        return row.map((cell, j) => {
+                            return (
+                                <div className="cell" key={j} style={{
+                                    gridColumn: j + 1,
+                                    gridRow: i + 1,
+                                }}>{cell}</div>
+                            )
+                        })
                     })
                 }
-            </pre>
+            </div>
             <button onClick={roleDice}>Role dice</button>
         </div>
     );
